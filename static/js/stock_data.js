@@ -22,6 +22,7 @@ function getData() {
             });
         }
 
+        // Identify variables
         var name = data.dataset.name;
         var start_date = data.dataset.start_date;
         var end_date = data.dataset.end_date;
@@ -30,35 +31,20 @@ function getData() {
         var high = unpack(data.dataset.data, 2);
         var low = unpack(data.dataset.data, 3);
         var closingPrices = unpack(data.dataset.data, 4);
+        var volume = unpack(data.dataset.data, 5);
 
-        var trace1 = {
-            type: "scatter",
-            mode: "lines",
-            name: name,
-            x: dates,
-            y: closingPrices,
-            line: {
-                color: 'green'
-            }
-        };
-
-        var data = [trace1]
-
-        var layout = {
-            title: `${name} Closing Prices`,
-            xaxis: {
-                range: [start_date, end_date],
-                type: "date"
-            },
-            yaxis: {
-                autorange: true,
-                type: "linear"
-            }
-        };
+        var lastClose = closingPrices[0];
+        var firstClose = closingPrices[closingPrices.length - 1];
+        var change = ((lastClose - firstClose) / firstClose) * 100;
         
-        Plotly.newPlot("closingPricesChart", data, layout);
+        // Add in some text information about the selected stock
+        document.getElementById("company").textContent = `${name}`;
+        document.getElementById("periodHigh").textContent = `Period High: $${Math.max.apply(Math, high)}`;
+        document.getElementById("periodLow").textContent = `Period Low: $${Math.min.apply(Math, low)}`;
+        document.getElementById("percentChange").textContent = `Change in Period: ${change.toFixed(2)}%`;
 
-        var trace2 = {
+        // Create a candlestick chart
+        var trace1 = {
             x: dates,
             close: closingPrices,
             high: high,
@@ -74,10 +60,10 @@ function getData() {
         
         };
 
-        var data2= [trace2];
+        var data1= [trace1];
 
-        var layout2 = {
-            title: `${name} Closing Prices`,
+        var layout1 = {
+            title: `${ticker} Daily Price Movements`,
             dragmode: 'zoom',
             showlegend: false,
             xaxis: {
@@ -87,7 +73,22 @@ function getData() {
             }
         };
 
-        Plotly.newPlot('candlestickChart', data2, layout2);
+        Plotly.newPlot('candlestickChart', data1, layout1);
+
+        // Create volume bar chart
+        var data2 = [
+            {
+                x: dates,
+                y: volume,
+                type: 'bar'
+            }
+        ];
+
+        var layout2 = {
+            title: `${ticker} Daily Volume`
+        };
+
+        Plotly.newPlot('barChart', data2, layout2);
 
     });
 
