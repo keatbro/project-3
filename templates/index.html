@@ -10,20 +10,20 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">NASDAQ-100</a>
+    <div class="navbar-brand">The NASDAQ-100</div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Analysis</a>
+          <a class="nav-link" href="analysis.html">Analysis</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Sources</a>
+          <a class="nav-link" href="sources.html">Sources</a>
         </li>
       </ul>
     </div>
@@ -36,7 +36,7 @@
               <h2 class="description-header">Taking a look a the NASDAQ-100.</h2>
               <hr>
               <p>The purpose of this project is to analyze the companies in the NASDAQ-100, an index which actually includes 103 companies, and is composed of the largest non-financial companies listed on the NASDAQ. The data for the tickers comes from Quandl and includes relevant stock information between January 1, 2017 and January 1, 2018.</p>
-              <p>Select a ticker from the dropdown below and click "Analyze" to get started.</p>
+              <p>Select a ticker from the dropdown below and click "Visualize" to get started.</p>
               <p>If you're interested in some more in-depth analysis on a ticker, check out the "Analysis" page to examine the effectiveness of a simple breakout strategy.</p>
               <div class="col-lg-3 col-md-3">
                 <select class="custom-select" method="GET" action="/">
@@ -44,16 +44,18 @@
                         <option value="{{ticker}}" SELECTED>{{ticker}}</option>
                     {% endfor %}
                 </select>
-                <button type="button" class="btn btn-primary btn-sm" onclick="getData()">Analyze</button>
+                <p></p>
+                <button type="button" class="btn btn-primary btn-sm" onclick="getData()">Visualize</button>
               </div>
             <hr>
           </div> 
     </div>
     <div class="container">
-      <p id="company"></p>
+      <h4 id="company"></h4>
       <p id="periodHigh"></p>
       <p id="periodLow"></p>
       <p id="percentChange"></p>
+      <p id="avgVolume"></p>
     </div>
     <div class="container" id="candlestickChart"></div>
     <div class="container" id="barChart"></div>
