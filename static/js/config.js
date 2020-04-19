@@ -1,1 +1,3 @@
-var apikey = 'T-xYzDHKkrA11TrzNYKk'
+var config = {
+    apikey: 'T-xYzDHKkrA11TrzNYKk'
+}
