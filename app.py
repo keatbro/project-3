@@ -1,6 +1,3 @@
-# The purpose of this script is to get the tickers list into the HTML dropdown
-# It will need to go from get tickers -> MongoDB -> HTML
-
 # Import dependencies
 from flask import Flask, render_template
 import get_tickers
